@@ -4,8 +4,8 @@ plugins {
 	id("org.springframework.boot") version "2.6.2"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.6.10"
-	kotlin("plugin.spring") version "1.6.10"
-	kotlin("plugin.jpa") version "1.6.10"
+	kotlin("plugin.spring") version "1.6.10" // include all-open
+	kotlin("plugin.jpa") version "1.6.10" // include no-arg
 }
 
 group = "kw.more"
@@ -17,14 +17,17 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.2")
+	implementation("org.springframework.boot:spring-boot-starter-web:2.6.2")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("com.h2database:h2")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	developmentOnly("org.springframework.boot:spring-boot-devtools:2.6.2")
+	runtimeOnly("com.h2database:h2:2.0.206")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.2")
+	testImplementation("org.assertj:assertj-core:3.22.0")
+	testImplementation("io.mockk:mockk:1.12.2")
 }
 
 allOpen {
