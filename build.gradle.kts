@@ -23,11 +23,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	developmentOnly("org.springframework.boot:spring-boot-devtools:2.6.2")
-	runtimeOnly("com.h2database:h2:2.0.206")
+	runtimeOnly("com.h2database:h2:1.4.200")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.2")
 	testImplementation("org.assertj:assertj-core:3.22.0")
-	testImplementation("io.mockk:mockk:1.12.2")
 }
 
 allOpen {
