@@ -18,7 +18,7 @@ class Book  (
     @Enumerated(EnumType.STRING)
     var genre: Genre,
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "tag", joinColumns = [JoinColumn(name = "book_id")])
     @Column(name = "text")
     var tags: Set<String>,
@@ -27,4 +27,5 @@ class Book  (
 
     @OneToMany(mappedBy = "book")
     var covers: MutableList<Cover> = mutableListOf<Cover>()
+
 ) : BaseTimeEntity()

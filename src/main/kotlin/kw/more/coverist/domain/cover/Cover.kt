@@ -15,7 +15,7 @@ class Cover (
        var id: Long? = null,
 
        @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name = "book_id", nullable = false)
+       @JoinColumn(name = "book_id")
        var book: Book,
 
        var url: String
