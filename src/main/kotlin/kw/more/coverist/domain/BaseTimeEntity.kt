@@ -8,14 +8,14 @@ import javax.persistence.Column
 import javax.persistence.EntityListeners
 import javax.persistence.MappedSuperclass
 
-@EntityListeners(AuditingEntityListener::class)
+@EntityListeners(value = [AuditingEntityListener::class])
 @MappedSuperclass
-abstract class BaseTimeEntity (
+open class BaseTimeEntity (
     @CreatedDate
     @Column(name = "created_date", insertable = false, updatable = false)
-    open var createdDate: LocalDateTime? = null,
+    var createdDate: LocalDateTime? = null,
 
     @LastModifiedDate
     @Column(name = "modified_date", insertable = false, updatable = false)
-    open var modifiedDate: LocalDateTime? = null
+    var modifiedDate: LocalDateTime? = null
 )
