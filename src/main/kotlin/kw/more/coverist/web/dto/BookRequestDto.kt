@@ -1,8 +1,11 @@
 package kw.more.coverist.web.dto
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import kw.more.coverist.domain.book.Book
 import kw.more.coverist.domain.book.Genre
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class BookRequestDto (
     val title: String,
     val author: String,
