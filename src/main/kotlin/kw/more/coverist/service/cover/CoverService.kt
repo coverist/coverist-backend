@@ -18,7 +18,7 @@ class CoverService {
     lateinit var coverRepository: CoverRepository
 
     @Transactional
-    fun genCover(book: BookRequestDto) : CoverResponseDto {
+    fun genNewCover(book: BookRequestDto) : CoverResponseDto {
         val book = bookRepository.save(book.toEntity())
 
         // 1. book 정보를 AI 서버로 전달 후
@@ -31,5 +31,32 @@ class CoverService {
         book.covers.add(cover)
 
         return cover.toResponseDto()
+    }
+
+    @Transactional
+    fun genBookCover(id: Long) : CoverResponseDto {
+        val book = bookRepository.findById(id).get()
+
+        // 1. book 정보를 AI 서버로 전달 후
+        // 2. 생성된 cover 이미지가 AWS S3에 업로드 된 후
+        // 3. AI 서버가 본 서버로 S3 URL을 반환한다
+
+        val coverUrl = "COVERIST_COVER_S3_URL_SAMPLE"
+
+        val cover = coverRepository.save(Cover(book = book, url = coverUrl))
+        book.covers.add(cover)
+
+        return cover.toResponseDto()
+    }
+
+    @Transactional(readOnly = true)
+    fun findByBook(id: Long): List<CoverResponseDto> {
+        val covers = bookRepository.findById(id).get().covers
+        return covers.map { it.toResponseDto() }
+    }
+
+    @Transactional(readOnly = true)
+    fun findById(id: Long): CoverResponseDto {
+        return coverRepository.findById(id).get().toResponseDto()
     }
 }

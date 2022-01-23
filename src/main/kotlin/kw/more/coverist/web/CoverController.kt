@@ -4,10 +4,7 @@ import kw.more.coverist.service.cover.CoverService
 import kw.more.coverist.web.dto.BookRequestDto
 import kw.more.coverist.web.dto.CoverResponseDto
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1")
@@ -16,7 +13,22 @@ class CoverController {
     lateinit var coverService: CoverService
 
     @PostMapping("/book")
-    fun gen(@RequestBody bookRequestDto: BookRequestDto): CoverResponseDto {
-        return coverService.genCover(bookRequestDto)
+    fun genNewCover(@RequestBody bookRequestDto: BookRequestDto): CoverResponseDto {
+        return coverService.genNewCover(bookRequestDto)
+    }
+
+    @PostMapping("/book/{id}")
+    fun genBookCover(@PathVariable id: Long): CoverResponseDto {
+        return coverService.genBookCover(id)
+    }
+
+    @GetMapping("/book/{id}/cover")
+    fun getCoversOfBook(@PathVariable id: Long): List<CoverResponseDto> {
+        return coverService.findByBook(id)
+    }
+
+    @GetMapping("/cover/{id}")
+    fun getCoverById(@PathVariable id: Long): CoverResponseDto {
+        return coverService.findById(id)
     }
 }
