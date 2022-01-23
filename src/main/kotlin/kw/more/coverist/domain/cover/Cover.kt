@@ -24,7 +24,8 @@ class Cover (
 ) : BaseTimeEntity() {
        fun toResponseDto(): CoverResponseDto {
               return CoverResponseDto(
-                     id = id,
+                     coverId = id,
+                     bookId = book.id,
                      title = book.title,
                      author = book.author,
                      genre = book.genre.toString(),
