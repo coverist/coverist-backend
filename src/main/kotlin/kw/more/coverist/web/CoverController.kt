@@ -3,6 +3,7 @@ package kw.more.coverist.web
 import kw.more.coverist.service.cover.CoverService
 import kw.more.coverist.web.dto.BookRequestDto
 import kw.more.coverist.web.dto.CoverResponseDto
+import kw.more.coverist.web.dto.CoverUrlResponseDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -23,7 +24,7 @@ class CoverController {
     }
 
     @GetMapping("/book/{id}/cover")
-    fun getCoversOfBook(@PathVariable id: Long): List<CoverResponseDto> {
+    fun getCoversOfBook(@PathVariable id: Long): CoverUrlResponseDto {
         return coverService.findByBook(id)
     }
 

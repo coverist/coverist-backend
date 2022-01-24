@@ -5,6 +5,7 @@ import kw.more.coverist.domain.cover.Cover
 import kw.more.coverist.domain.cover.CoverRepository
 import kw.more.coverist.web.dto.BookRequestDto
 import kw.more.coverist.web.dto.CoverResponseDto
+import kw.more.coverist.web.dto.CoverUrlResponseDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -50,9 +51,9 @@ class CoverService {
     }
 
     @Transactional(readOnly = true)
-    fun findByBook(id: Long): List<CoverResponseDto> {
+    fun findByBook(id: Long): CoverUrlResponseDto {
         val covers = bookRepository.findById(id).get().covers
-        return covers.map { it.toResponseDto() }
+        return CoverUrlResponseDto(covers.map { it.url })
     }
 
     @Transactional(readOnly = true)
