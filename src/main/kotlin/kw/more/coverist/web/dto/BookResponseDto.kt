@@ -10,6 +10,6 @@ data class BookResponseDto (
     val author: String,
     val genre: String,
     val tags: Set<String>,
-    val publisher: String,
+    val publisher: String?,
     val covers: List<Long?>
 )

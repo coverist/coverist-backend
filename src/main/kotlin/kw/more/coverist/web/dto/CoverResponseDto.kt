@@ -11,6 +11,6 @@ data class CoverResponseDto (
         val author: String,
         val genre: String,
         val tags: Set<String>,
-        val publisher: String,
+        val publisher: String?,
         val url: String
 )

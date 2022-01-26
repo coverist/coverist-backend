@@ -24,7 +24,7 @@ class Book  (
     @Column(name = "text")
     var tags: Set<String>,
 
-    var publisher: String,
+    var publisher: String?,
 
     @OneToMany(mappedBy = "book")
     var covers: MutableList<Cover> = mutableListOf<Cover>()
