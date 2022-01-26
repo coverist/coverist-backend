@@ -6,7 +6,7 @@ import kw.more.coverist.web.dto.BookResponseDto
 import javax.persistence.*
 
 @Entity
-class Book  (
+class Book(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")

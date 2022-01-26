@@ -9,29 +9,29 @@ import javax.persistence.*
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 @Entity
-class Cover (
-       @Id
-       @GeneratedValue(strategy = GenerationType.IDENTITY)
-       @Column(name = "cover_id")
-       var id: Long? = null,
+class Cover(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cover_id")
+    var id: Long? = null,
 
-       @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name = "book_id")
-       var book: Book,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    var book: Book,
 
-       var url: String
+    var url: String
 
 ) : BaseTimeEntity() {
-       fun toResponseDto(): CoverResponseDto {
-              return CoverResponseDto(
-                     coverId = id,
-                     bookId = book.id,
-                     title = book.title,
-                     author = book.author,
-                     genre = book.genre.toString(),
-                     tags = book.tags,
-                     publisher = book.publisher,
-                     url = url
-              )
-       }
+    fun toResponseDto(): CoverResponseDto {
+        return CoverResponseDto(
+            coverId = id,
+            bookId = book.id,
+            title = book.title,
+            author = book.author,
+            genre = book.genre.toString(),
+            tags = book.tags,
+            publisher = book.publisher,
+            url = url
+        )
+    }
 }

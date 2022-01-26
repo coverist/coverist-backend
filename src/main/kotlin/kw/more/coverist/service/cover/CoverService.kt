@@ -3,6 +3,8 @@ package kw.more.coverist.service.cover
 import kw.more.coverist.domain.book.BookRepository
 import kw.more.coverist.domain.cover.Cover
 import kw.more.coverist.domain.cover.CoverRepository
+import kw.more.coverist.exception.custom.NonexistentBookException
+import kw.more.coverist.exception.custom.NonexistentCoverException
 import kw.more.coverist.web.dto.BookRequestDto
 import kw.more.coverist.web.dto.CoverResponseDto
 import kw.more.coverist.web.dto.CoverUrlResponseDto
@@ -36,7 +38,7 @@ class CoverService {
 
     @Transactional
     fun genBookCover(id: Long) : CoverResponseDto {
-        val book = bookRepository.findById(id).get()
+        val book = bookRepository.findById(id).orElseThrow { NonexistentBookException() }
 
         // 1. book 정보를 AI 서버로 전달 후
         // 2. 생성된 cover 이미지가 AWS S3에 업로드 된 후
@@ -52,12 +54,12 @@ class CoverService {
 
     @Transactional(readOnly = true)
     fun findByBook(id: Long): CoverUrlResponseDto {
-        val covers = bookRepository.findById(id).get().covers
+        val covers = bookRepository.findById(id).orElseThrow { NonexistentBookException() }.covers
         return CoverUrlResponseDto(covers.map { it.url })
     }
 
     @Transactional(readOnly = true)
     fun findById(id: Long): CoverResponseDto {
-        return coverRepository.findById(id).get().toResponseDto()
+        return coverRepository.findById(id).orElseThrow { NonexistentCoverException() }.toResponseDto()
     }
 }

@@ -33,3 +33,4 @@ class CoverController {
         return coverService.findById(id)
     }
 }
+
