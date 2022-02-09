@@ -1,4 +1,4 @@
-package kw.more.coverist.service.cover
+package kw.more.coverist.service.book
 
 import kw.more.coverist.domain.book.BookRepository
 import kw.more.coverist.exception.custom.NonexistentBookException
@@ -14,6 +14,6 @@ class BookService {
 
     @Transactional(readOnly = true)
     fun findById(id: Long): BookResponseDto {
-        return bookRepository.findById(id).orElseThrow{ NonexistentBookException() }.toResponseDto()
+        return bookRepository.findById(id).orElseThrow { NonexistentBookException() }.toResponseDto()
     }
 }

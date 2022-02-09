@@ -16,8 +16,10 @@ class Book(
 
     var author: String,
 
-    @Enumerated(EnumType.STRING)
-    var genre: Genre,
+    var genre: String,
+
+    @Column(name = "sub_genre")
+    var subGenre: String,
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "tag", joinColumns = [JoinColumn(name = "book_id")])
@@ -35,7 +37,8 @@ class Book(
             id = id,
             title = title,
             author = author,
-            genre = genre.toString(),
+            genre = genre,
+            subGenre = subGenre,
             tags = tags,
             publisher = publisher,
             covers = covers.map { it.id }

@@ -28,7 +28,8 @@ class Cover(
             bookId = book.id,
             title = book.title,
             author = book.author,
-            genre = book.genre.toString(),
+            genre = book.genre,
+            subGenre = book.subGenre,
             tags = book.tags,
             publisher = book.publisher,
             url = url
