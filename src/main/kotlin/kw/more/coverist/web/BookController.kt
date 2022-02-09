@@ -1,5 +1,8 @@
 package kw.more.coverist.web
 
+import kw.more.coverist.domain.book.GENRE
+import kw.more.coverist.domain.book.SUB_GENRE
+import kw.more.coverist.exception.custom.InvalidGenreException
 import kw.more.coverist.service.book.BookService
 import kw.more.coverist.web.dto.BookResponseDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,5 +20,16 @@ class BookController {
     @GetMapping("/book/{id}")
     fun getBookById(@PathVariable id: Long): BookResponseDto {
         return bookService.findById(id)
+    }
+
+    @GetMapping("/book/genre")
+    fun getBookGenre(): List<String> {
+        return GENRE
+    }
+
+    @GetMapping("/book/genre/{genre}/subgenre")
+    fun getBookSubGenre(@PathVariable genre: String): List<String> {
+        if (genre !in GENRE) throw InvalidGenreException()
+        return SUB_GENRE[genre]!!
     }
 }
