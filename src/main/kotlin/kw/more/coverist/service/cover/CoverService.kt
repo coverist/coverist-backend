@@ -1,8 +1,12 @@
 package kw.more.coverist.service.cover
 
 import kw.more.coverist.domain.book.BookRepository
+import kw.more.coverist.domain.book.GENRE
+import kw.more.coverist.domain.book.SUB_GENRE
 import kw.more.coverist.domain.cover.Cover
 import kw.more.coverist.domain.cover.CoverRepository
+import kw.more.coverist.exception.custom.InvalidGenreException
+import kw.more.coverist.exception.custom.InvalidSubGenreException
 import kw.more.coverist.exception.custom.NonexistentBookException
 import kw.more.coverist.exception.custom.NonexistentCoverException
 import kw.more.coverist.web.dto.BookRequestDto
@@ -21,7 +25,9 @@ class CoverService {
     lateinit var coverRepository: CoverRepository
 
     @Transactional
-    fun genNewCover(book: BookRequestDto) : CoverResponseDto {
+    fun genNewCover(book: BookRequestDto): CoverResponseDto {
+        checkGenreValidation(book)
+
         val book = bookRepository.save(book.toEntity())
 
         // 1. book 정보를 AI 서버로 전달 후
@@ -37,7 +43,7 @@ class CoverService {
     }
 
     @Transactional
-    fun genBookCover(id: Long) : CoverResponseDto {
+    fun genBookCover(id: Long): CoverResponseDto {
         val book = bookRepository.findById(id).orElseThrow { NonexistentBookException() }
 
         // 1. book 정보를 AI 서버로 전달 후
@@ -61,5 +67,10 @@ class CoverService {
     @Transactional(readOnly = true)
     fun findById(id: Long): CoverResponseDto {
         return coverRepository.findById(id).orElseThrow { NonexistentCoverException() }.toResponseDto()
+    }
+
+    fun checkGenreValidation(book: BookRequestDto) {
+        if (book.genre !in GENRE) throw InvalidGenreException()
+        if (book.subGenre !in SUB_GENRE[book.genre]!!) throw InvalidSubGenreException()
     }
 }

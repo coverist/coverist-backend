@@ -1,6 +1,6 @@
 package kw.more.coverist.web
 
-import kw.more.coverist.service.cover.BookService
+import kw.more.coverist.service.book.BookService
 import kw.more.coverist.web.dto.BookResponseDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
