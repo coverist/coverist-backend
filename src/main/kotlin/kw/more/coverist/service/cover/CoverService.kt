@@ -1,8 +1,8 @@
 package kw.more.coverist.service.cover
 
 import kw.more.coverist.domain.book.BookRepository
-import kw.more.coverist.domain.book.GENRE
-import kw.more.coverist.domain.book.SUB_GENRE
+import kw.more.coverist.domain.book.GENRES
+import kw.more.coverist.domain.book.SUB_GENRES
 import kw.more.coverist.domain.cover.Cover
 import kw.more.coverist.domain.cover.CoverRepository
 import kw.more.coverist.exception.custom.InvalidGenreException
@@ -70,7 +70,7 @@ class CoverService {
     }
 
     fun checkGenreValidation(book: BookRequestDto) {
-        if (book.genre !in GENRE) throw InvalidGenreException()
-        if (book.subGenre !in SUB_GENRE[book.genre]!!) throw InvalidSubGenreException()
+        val genreId = GENRES.find { it.text == book.genre }?.id ?: throw InvalidGenreException()
+        SUB_GENRES[genreId]!!.find { it == book.subGenre } ?: throw InvalidSubGenreException()
     }
 }
