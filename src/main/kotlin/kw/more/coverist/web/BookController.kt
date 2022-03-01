@@ -29,8 +29,8 @@ class BookController {
     }
 
     @GetMapping("/book/genre/{genre_id}/subgenre")
-    fun getBookSubGenre(@PathVariable("genre_id") genreId: Int): List<String> {
+    fun getBookSubGenre(@PathVariable("genre_id") genreId: Int): List<Genre> {
         val genre = GENRES.find { it.id == genreId } ?: throw InvalidGenreException()
-        return SUB_GENRES[genre.id]!!
+        return SUB_GENRES[genre.id]!!.map { Genre(0, it) }
     }
 }
