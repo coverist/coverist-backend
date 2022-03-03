@@ -1,7 +1,8 @@
 package kw.more.coverist.web
 
-import kw.more.coverist.domain.book.GENRE
-import kw.more.coverist.domain.book.SUB_GENRE
+import kw.more.coverist.domain.book.GENRES
+import kw.more.coverist.domain.book.Genre
+import kw.more.coverist.domain.book.SUB_GENRES
 import kw.more.coverist.exception.custom.InvalidGenreException
 import kw.more.coverist.service.book.BookService
 import kw.more.coverist.web.dto.BookResponseDto
@@ -23,13 +24,13 @@ class BookController {
     }
 
     @GetMapping("/book/genre")
-    fun getBookGenre(): List<String> {
-        return GENRE
+    fun getBookGenre(): List<Genre> {
+        return GENRES
     }
 
-    @GetMapping("/book/genre/{genre}/subgenre")
-    fun getBookSubGenre(@PathVariable genre: String): List<String> {
-        if (genre !in GENRE) throw InvalidGenreException()
-        return SUB_GENRE[genre]!!
+    @GetMapping("/book/genre/{genre_id}/subgenre")
+    fun getBookSubGenre(@PathVariable("genre_id") genreId: Int): List<Genre> {
+        val genre = GENRES.find { it.id == genreId } ?: throw InvalidGenreException()
+        return SUB_GENRES[genre.id]!!.map { Genre(0, it) }
     }
 }

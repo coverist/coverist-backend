@@ -1,38 +1,43 @@
 package kw.more.coverist.domain.book
 
-val GENRE = listOf(
-    "컴퓨터/IT",
-    "소설",
-    "외국어",
-    "예술/대중문화",
-    "자기계발",
-    "중/고등참고서",
-    "초등참고서",
-    "정치/사회",
-    "건강",
-    "만화",
-    "청소년",
-    "인문",
-    "잡지",
-    "취업/수험서",
-    "경제/경영",
-    "시/에세이",
-    "기술/공학",
-    "여행",
-    "과학",
-    "어린이전집",
-    "역사/문화",
-    "유아(0~7세)",
-    "가정/육아",
-    "취미/실용/스포츠",
-    "한국소개도서",
-    "요리",
-    "종교",
-    "어린이(초등)"
+data class Genre(
+    val id: Int,
+    val text: String
 )
 
-val SUB_GENRE = mapOf(
-    "컴퓨터/IT" to listOf(
+val GENRES = listOf(
+    Genre(1, "컴퓨터/IT"),
+    Genre(2, "소설"),
+    Genre(3, "외국어"),
+    Genre(4, "예술/대중문화"),
+    Genre(5, "자기계발"),
+    Genre(6, "중/고등참고서"),
+    Genre(7, "초등참고서"),
+    Genre(8, "정치/사회"),
+    Genre(9, "건강"),
+    Genre(10, "만화"),
+    Genre(11, "청소년"),
+    Genre(12, "인문"),
+    Genre(13, "잡지"),
+    Genre(14, "취업/수험서"),
+    Genre(15, "경제/경영"),
+    Genre(16, "시/에세이"),
+    Genre(17, "기술/공학"),
+    Genre(18, "여행"),
+    Genre(19, "과학"),
+    Genre(20, "어린이전집"),
+    Genre(21, "역사/문화"),
+    Genre(22, "유아(0~7세)"),
+    Genre(23, "가정/육아"),
+    Genre(24, "취미/실용/스포츠"),
+    Genre(26, "한국소개도서"),
+    Genre(26, "요리"),
+    Genre(27, "종교"),
+    Genre(28, "어린이(초등)")
+)
+
+val SUB_GENRES = mapOf(
+    1 to listOf(
         "모바일프로그래밍",
         "대학교재",
         "OA/사무자동화",
@@ -54,7 +59,7 @@ val SUB_GENRE = mapOf(
         "웹프로그래밍",
         "게임"
     ),
-    "소설" to listOf(
+    2 to listOf(
         "러시아소설",
         "중국소설",
         "프랑스소설",
@@ -67,7 +72,7 @@ val SUB_GENRE = mapOf(
         "기타나라소설",
         "한국소설"
     ),
-    "외국어" to listOf(
+    3 to listOf(
         "영어일반",
         "유학",
         "수험영어",
@@ -93,7 +98,7 @@ val SUB_GENRE = mapOf(
         "일본어능력시험/JPT",
         "독일어"
     ),
-    "예술/대중문화" to listOf(
+    4 to listOf(
         "미술",
         "예술기행",
         "사진/영상",
@@ -106,7 +111,7 @@ val SUB_GENRE = mapOf(
         "영화",
         "음악"
     ),
-    "자기계발" to listOf(
+    5 to listOf(
         "화술/협상",
         "비즈니스능력계발",
         "청소년자기계발",
@@ -114,7 +119,7 @@ val SUB_GENRE = mapOf(
         "자기능력계발",
         "성공/처세"
     ),
-    "중/고등참고서" to listOf(
+    6 to listOf(
         "영어/수학일반/한자",
         "고등학교 과목별",
         "중학교 학년별",
@@ -124,7 +129,7 @@ val SUB_GENRE = mapOf(
         "고등학교 출판사별",
         "검정고시"
     ),
-    "초등참고서" to listOf(
+    7 to listOf(
         "학년별 개념/문제",
         "학습교구",
         "영재학습지",
@@ -132,7 +137,7 @@ val SUB_GENRE = mapOf(
         "전과",
         "단계별 학습지"
     ),
-    "정치/사회" to listOf(
+    8 to listOf(
         "사회학",
         "사회문제/복지",
         "행정/정책",
@@ -141,7 +146,7 @@ val SUB_GENRE = mapOf(
         "법학",
         "국방/군사"
     ),
-    "건강" to listOf(
+    9 to listOf(
         "건강식사",
         "자연건강",
         "뇌건강",
@@ -152,7 +157,7 @@ val SUB_GENRE = mapOf(
         "피부관리/메이크업",
         "건강일반"
     ),
-    "만화" to listOf(
+    10 to listOf(
         "SF/판타지",
         "기타만화",
         "탐정/추리",
@@ -176,7 +181,7 @@ val SUB_GENRE = mapOf(
         "웹툰/카툰에세이",
         "캐릭터상품"
     ),
-    "청소년" to listOf(
+    11 to listOf(
         "청소년 공부/학습법",
         "청소년 고전",
         "청소년 에세이",
@@ -194,7 +199,7 @@ val SUB_GENRE = mapOf(
         "청소년 인문교양",
         "청소년 과학/컴퓨터"
     ),
-    "인문" to listOf(
+    12 to listOf(
         "영미문학론",
         "인문고전총서",
         "문학이론",
@@ -214,7 +219,7 @@ val SUB_GENRE = mapOf(
         "교육학",
         "심리학"
     ),
-    "잡지" to listOf(
+    13 to listOf(
         "취미/레포츠",
         "자연/공학",
         "문학/교양",
@@ -223,7 +228,7 @@ val SUB_GENRE = mapOf(
         "예술/대중문화",
         "외국잡지"
     ),
-    "취업/수험서" to listOf(
+    14 to listOf(
         "편입/독학사",
         "전체",
         "변호사/로스쿨/외무행정고시",
@@ -236,7 +241,7 @@ val SUB_GENRE = mapOf(
         "공무원 과목별",
         "인적성/직무능력"
     ),
-    "경제/경영" to listOf(
+    15 to listOf(
         "관광/호텔",
         "유통/창업",
         "마케팅/광고/고객",
@@ -252,7 +257,7 @@ val SUB_GENRE = mapOf(
         "경영전략",
         "무역/운송"
     ),
-    "시/에세이" to listOf(
+    16 to listOf(
         "인물/자전적에세이",
         "테마에세이",
         "한국시",
@@ -260,7 +265,7 @@ val SUB_GENRE = mapOf(
         "해외시",
         "나라별 에세이"
     ),
-    "기술/공학" to listOf(
+    17 to listOf(
         "농수산/축산",
         "기계/역학/항공",
         "환경/소방/도시/조경",
@@ -274,14 +279,14 @@ val SUB_GENRE = mapOf(
         "토목/건설",
         "의학"
     ),
-    "여행" to listOf(
+    18 to listOf(
         "여행에세이",
         "테마여행",
         "국내여행",
         "인기지역",
         "해외여행"
     ),
-    "과학" to listOf(
+    19 to listOf(
         "초과학",
         "지구과학",
         "도감",
@@ -294,11 +299,11 @@ val SUB_GENRE = mapOf(
         "과학이론",
         "물리학"
     ),
-    "어린이전집" to listOf(
+    20 to listOf(
         "유아",
         "아동"
     ),
-    "역사/문화" to listOf(
+    21 to listOf(
         "세계사",
         "신화",
         "역사기행",
@@ -310,7 +315,7 @@ val SUB_GENRE = mapOf(
         "지리학",
         "민속학"
     ),
-    "유아(0~7세)" to listOf(
+    22 to listOf(
         "유아학습",
         "유아놀이",
         "0세부터100세그림책",
@@ -318,13 +323,13 @@ val SUB_GENRE = mapOf(
         "유아그림책",
         "4~7세"
     ),
-    "가정/육아" to listOf(
+    23 to listOf(
         "육아",
         "자녀교육",
         "결혼/가정",
         "임신/출산"
     ),
-    "취미/실용/스포츠" to listOf(
+    24 to listOf(
         "무술",
         "살림의지혜",
         "체육",
@@ -341,13 +346,13 @@ val SUB_GENRE = mapOf(
         "스포츠",
         "취미일반"
     ),
-    "한국소개도서" to listOf(
+    25 to listOf(
         "한국문학",
         "한국일반",
         "한국역사",
         "한국어학습"
     ),
-    "요리" to listOf(
+    26 to listOf(
         "나라별요리",
         "베이킹/간식",
         "와인/커피/음료",
@@ -360,7 +365,7 @@ val SUB_GENRE = mapOf(
         "생활요리",
         "전문요리"
     ),
-    "종교" to listOf(
+    27 to listOf(
         "종교일반",
         "기독교(개신교)",
         "불교",
@@ -368,7 +373,7 @@ val SUB_GENRE = mapOf(
         "CD/TAPE/악보",
         "가톨릭"
     ),
-    "어린이(초등)" to listOf(
+    28 to listOf(
         "초등1-2학년",
         "어린이문학",
         "어린이교양",
