@@ -25,7 +25,7 @@ class CoverService {
     lateinit var coverRepository: CoverRepository
 
     @Transactional
-    fun genNewCover(book: BookRequestDto): CoverResponseDto {
+    fun genNewCover(book: BookRequestDto): List<CoverResponseDto> {
         checkGenreValidation(book)
 
         val book = bookRepository.save(book.toEntity())
@@ -34,12 +34,22 @@ class CoverService {
         // 2. 생성된 cover 이미지가 AWS S3에 업로드 된 후
         // 3. AI 서버가 본 서버로 S3 URL을 반환한다
 
-        val coverUrl = "COVERIST_COVER_S3_URL_SAMPLE"
+        val coverUrl = listOf(
+            "COVERIST_COVER_S3_URL_SAMPLE_1",
+            "COVERIST_COVER_S3_URL_SAMPLE_2",
+            "COVERIST_COVER_S3_URL_SAMPLE_3",
+            "COVERIST_COVER_S3_URL_SAMPLE_4"
+        )
 
-        val cover = coverRepository.save(Cover(book = book, url = coverUrl))
-        book.covers.add(cover)
+        val result = mutableListOf<CoverResponseDto>()
 
-        return cover.toResponseDto()
+        for (url in coverUrl) {
+            val cover = coverRepository.save(Cover(book = book, url = url))
+            book.covers.add(cover)
+            result.add(cover.toResponseDto())
+        }
+
+        return result
     }
 
     @Transactional

@@ -14,7 +14,7 @@ class CoverController {
     lateinit var coverService: CoverService
 
     @PostMapping("/book")
-    fun genNewCover(@RequestBody bookRequestDto: BookRequestDto): CoverResponseDto {
+    fun genNewCover(@RequestBody bookRequestDto: BookRequestDto): List<CoverResponseDto> {
         return coverService.genNewCover(bookRequestDto)
     }
 
