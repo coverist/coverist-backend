@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 class CoveristApplication
 
 fun main(args: Array<String>) {
-	runApplication<CoveristApplication>(*args)
+    runApplication<CoveristApplication>(*args)
 }

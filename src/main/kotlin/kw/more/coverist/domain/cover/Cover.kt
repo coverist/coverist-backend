@@ -31,7 +31,6 @@ class Cover(
             genre = book.genre,
             subGenre = book.subGenre,
             tags = book.tags,
-            publisher = book.publisher,
             url = url
         )
     }
