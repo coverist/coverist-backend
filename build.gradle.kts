@@ -23,6 +23,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.6.2")
     runtimeOnly("com.h2database:h2:1.4.200")
 
