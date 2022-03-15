@@ -2,6 +2,7 @@ package kw.more.coverist.domain.book
 
 import kw.more.coverist.domain.BaseTimeEntity
 import kw.more.coverist.domain.cover.Cover
+import kw.more.coverist.web.dto.BookInfo
 import kw.more.coverist.web.dto.BookResponseDto
 import javax.persistence.*
 
@@ -42,6 +43,17 @@ class Book(
             tags = tags,
             publisher = publisher,
             covers = covers.map { it.id }
+        )
+    }
+
+    fun toBookInfo(publisherBase64String: String?): BookInfo {
+        return BookInfo(
+            title = title,
+            author = author,
+            genre = genre,
+            subGenre = subGenre,
+            tags = tags.toList(),
+            publisher = publisherBase64String,
         )
     }
 }
