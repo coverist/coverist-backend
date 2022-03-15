@@ -7,8 +7,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
+import java.io.ByteArrayInputStream
 import java.util.*
 
 @Service
@@ -21,7 +23,6 @@ class AmazonS3Util() {
     lateinit var bucket: String
 
     fun uploadFile(file: MultipartFile, dirName: String): String {
-        print(bucket)
         val fileName = dirName + "/" + createFileName(file.originalFilename!!)
 
         val inputStream = file.inputStream
@@ -32,6 +33,25 @@ class AmazonS3Util() {
 
         amazonS3.putObject(
             PutObjectRequest(bucket, fileName, inputStream, objectMetadata).withCannedAcl(
+                CannedAccessControlList.PublicReadWrite
+            )
+        )
+
+        return amazonS3.getUrl(bucket, fileName).toString()
+    }
+
+    fun uploadFile(base64String: String, dirName: String): String {
+        val fileName = dirName + "/" + createFileName(UUID.randomUUID().toString() + ".jpeg")
+
+        val imageBytes = Base64.getDecoder().decode(base64String)
+        val imageBytesInputStream = ByteArrayInputStream(imageBytes)
+
+        val objectMetadata = ObjectMetadata()
+        objectMetadata.contentLength = imageBytes.size.toLong()
+        objectMetadata.contentType = MediaType.IMAGE_JPEG_VALUE
+
+        amazonS3.putObject(
+            PutObjectRequest(bucket, fileName, imageBytesInputStream, objectMetadata).withCannedAcl(
                 CannedAccessControlList.PublicReadWrite
             )
         )
