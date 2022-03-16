@@ -22,8 +22,8 @@ class RestTemplateConfig(
         val httpClient = HttpClientBuilder.create().setMaxConnTotal(50).setMaxConnPerRoute(20).build()
         val factory = HttpComponentsClientHttpRequestFactory(httpClient)
         
-        factory.setConnectTimeout(Duration.ofSeconds(3).toMillis().toInt())
-        factory.setReadTimeout(Duration.ofSeconds(10).toMillis().toInt())
+        factory.setConnectTimeout(Duration.ofSeconds(30).toMillis().toInt())
+        factory.setReadTimeout(Duration.ofSeconds(30).toMillis().toInt())
 
         return restTemplateBuilder.rootUri(host).requestFactory { factory }.build()
     }
