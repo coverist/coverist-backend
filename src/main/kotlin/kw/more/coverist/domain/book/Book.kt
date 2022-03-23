@@ -42,7 +42,7 @@ class Book(
             subGenre = subGenre,
             tags = tags,
             publisher = publisher,
-            covers = covers.map { it.id },
+            coverUrls = covers.map { it.url },
             createdDate = createdDate.toString()
         )
     }

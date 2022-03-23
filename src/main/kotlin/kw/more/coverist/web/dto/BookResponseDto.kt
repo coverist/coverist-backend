@@ -12,6 +12,6 @@ data class BookResponseDto(
     val subGenre: String,
     val tags: Set<String>,
     val publisher: String?,
-    val covers: List<Long?>,
+    val coverUrls: List<String>,
     val createdDate: String
 )
