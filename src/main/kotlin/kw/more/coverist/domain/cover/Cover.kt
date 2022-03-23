@@ -31,7 +31,8 @@ class Cover(
             genre = book.genre,
             subGenre = book.subGenre,
             tags = book.tags,
-            url = url
+            url = url,
+            createdDate = createdDate.toString()
         )
     }
 }
