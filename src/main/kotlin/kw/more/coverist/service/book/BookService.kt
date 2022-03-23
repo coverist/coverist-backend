@@ -16,4 +16,9 @@ class BookService {
     fun findById(id: Long): BookResponseDto {
         return bookRepository.findById(id).orElseThrow { NonexistentBookException() }.toResponseDto()
     }
+
+    @Transactional(readOnly = true)
+    fun findByIds(ids: List<Long>): List<BookResponseDto> {
+        return bookRepository.findByIds(ids).orElseThrow { NonexistentBookException() }.map { it.toResponseDto() }
+    }
 }
