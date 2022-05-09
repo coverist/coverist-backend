@@ -20,11 +20,6 @@ import org.springframework.http.*
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
-import java.io.BufferedInputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.net.URL
-import java.util.*
 
 
 @Component
@@ -47,27 +42,35 @@ class CoverService {
     @Value("\${service.ai-server-host}")
     lateinit var aiServerHost: String
 
-    final val COVER_GENERATION_COUNT = 4
+    private final val COVER_GENERATION_COUNT = 4
+    private final val DEFAULT_PUBLISHER = "Coverist"
 
     @Transactional
     fun genNewCover(bookRequestVO: BookRequestVO): List<CoverResponseDto> {
         checkGenreValidation(bookRequestVO)
 
-        var publisherBase64: String? = null
-        var publisherUrl: String? = null
+        if (bookRequestVO.publisher.trim().isBlank())
+            bookRequestVO.publisher = DEFAULT_PUBLISHER
 
-        // If publisher image exists, upload it to AWS S3 and encode to base64 string.
-        bookRequestVO.publisher?.let {
-            publisherUrl = amazonS3Util.uploadFile(it, "publisher")
-
-            val encoder = Base64.getEncoder()
-            val encodedImage = encoder.encode(it.bytes)
-            publisherBase64 = String(encodedImage, Charsets.UTF_8)
+        //FIXME: TEST
+        return List(4) { idx ->
+            CoverResponseDto(
+                coverId = 0,
+                bookId = 0,
+                title = bookRequestVO.title,
+                author = bookRequestVO.author,
+                genre = bookRequestVO.genre,
+                subGenre = bookRequestVO.sub_genre,
+                tags = bookRequestVO.tags,
+                publisher = bookRequestVO.publisher,
+                url = "https://image.yes24.com/goods/89990069/XL",
+                createdDate = "2022-01-01T00:00:00"
+            )
         }
 
-        val book = bookRepository.save(bookRequestVO.toEntity(publisherUrl))
+        val book = bookRepository.save(bookRequestVO.toEntity())
 
-        val bookInfo = bookRequestVO.toBookInfo(publisherBase64)
+        val bookInfo = bookRequestVO.toBookInfo()
         val genRequestDto = GenRequestDto(bookInfo, COVER_GENERATION_COUNT)
 
         return genCover(book, genRequestDto)
@@ -77,28 +80,7 @@ class CoverService {
     fun genBookCover(id: Long): List<CoverResponseDto> {
         val book = bookRepository.findById(id).orElseThrow { NonexistentBookException() }
 
-        // If publisher image URL exists, download it from URL and encode to base64 string.
-        val tempFilePath = "temp_publisher_image"
-        val publisherBase64String = book.publisher?.let {
-            val inputStream = BufferedInputStream(URL(it).openStream())
-            val outputStream = FileOutputStream(tempFilePath)
-
-            val dataBuffer = ByteArray(1024)
-            var bytesRead: Int
-            while (true) {
-                bytesRead = inputStream.read(dataBuffer, 0, 1024)
-                if (bytesRead == -1) break
-                outputStream.write(dataBuffer, 0, bytesRead)
-            }
-
-            val tempFile = File(tempFilePath)
-            val base64 = Base64.getEncoder().encode(tempFile.readBytes())
-            tempFile.delete()
-
-            String(base64, Charsets.UTF_8)
-        }
-
-        val bookInfo = book.toBookInfo(publisherBase64String)
+        val bookInfo = book.toBookInfo()
         val genRequestDto = GenRequestDto(bookInfo, COVER_GENERATION_COUNT)
 
         return genCover(book, genRequestDto)
@@ -106,6 +88,7 @@ class CoverService {
 
     @Transactional
     fun genCover(book: Book, genRequestDto: GenRequestDto): List<CoverResponseDto> {
+
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
         val request = HttpEntity(mapper.writeValueAsString(genRequestDto), headers)

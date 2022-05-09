@@ -27,7 +27,7 @@ class Book(
     @Column(name = "text")
     var tags: Set<String>,
 
-    var publisher: String?,
+    var publisher: String,
 
     @OneToMany(mappedBy = "book")
     var covers: MutableList<Cover> = mutableListOf<Cover>()
@@ -47,14 +47,14 @@ class Book(
         )
     }
 
-    fun toBookInfo(publisherBase64String: String?): BookInfo {
+    fun toBookInfo(): BookInfo {
         return BookInfo(
             title = title,
             author = author,
             genre = genre,
             subGenre = subGenre,
             tags = tags.toList(),
-            publisher = publisherBase64String,
+            publisher = publisher,
         )
     }
 }

@@ -27,7 +27,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.6.2")
-    runtimeOnly("com.h2database:h2:1.4.200")
+    runtimeOnly("com.h2database:h2:2.1.212")
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.2")
     testImplementation("org.assertj:assertj-core:3.22.0")
