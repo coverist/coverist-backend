@@ -52,22 +52,6 @@ class CoverService {
         if (bookRequestVO.publisher.trim().isBlank())
             bookRequestVO.publisher = DEFAULT_PUBLISHER
 
-        //FIXME: TEST
-        return List(4) { idx ->
-            CoverResponseDto(
-                coverId = 0,
-                bookId = 0,
-                title = bookRequestVO.title,
-                author = bookRequestVO.author,
-                genre = bookRequestVO.genre,
-                subGenre = bookRequestVO.sub_genre,
-                tags = bookRequestVO.tags,
-                publisher = bookRequestVO.publisher,
-                url = "https://image.yes24.com/goods/89990069/XL",
-                createdDate = "2022-01-01T00:00:00"
-            )
-        }
-
         val book = bookRepository.save(bookRequestVO.toEntity())
 
         val bookInfo = bookRequestVO.toBookInfo()
