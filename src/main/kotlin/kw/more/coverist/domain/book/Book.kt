@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity
 class Book(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "book_id")
     var id: Long? = null,
 

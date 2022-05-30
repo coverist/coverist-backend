@@ -11,7 +11,7 @@ import javax.persistence.*
 @Entity
 class Cover(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cover_id")
     var id: Long? = null,
 
